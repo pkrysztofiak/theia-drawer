@@ -7,8 +7,8 @@ public class ViewModel {
 
     private final Model model;
     
-    private final int columns = 4;
-    private final int rows = 2;
+    private final int columns = 1;
+    private final int rows = 3;
     
     public ViewModel(Model model) {
         this.model = model;

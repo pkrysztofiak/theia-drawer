@@ -1,5 +1,8 @@
 package pl.pkrysztofiak.theiadrawer.viewmodel.measurements;
 
-public class MeasurementViewModel {
+import pl.pkrysztofiak.theiadrawer.model.measurements.MeasurementModel;
 
+public abstract class MeasurementViewModel {
+
+    public abstract boolean contains(MeasurementModel measurementModel);
 }

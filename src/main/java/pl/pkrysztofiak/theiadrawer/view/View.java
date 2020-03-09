@@ -11,13 +11,14 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import pl.pkrysztofiak.theiadrawer.view.panel.PanelView;
 import pl.pkrysztofiak.theiadrawer.viewmodel.ViewModel;
 
 public class View extends GridPane {
 
+    private final ViewModel viewModel;
+    
     private final ObservableList<PanelView> panels = FXCollections.observableArrayList();
     
     {
@@ -28,6 +29,7 @@ public class View extends GridPane {
     }
     
     public View(ViewModel viewModel) {
+        this.viewModel = viewModel;
         IntStream.range(0, viewModel.getColumns()).mapToObj(this::createColumnConstraints).forEach(getColumnConstraints()::add);
         IntStream.range(0, viewModel.getRows()).mapToObj(this::createRowConstraints).forEach(getRowConstraints()::add);
         IntStream.range(0, viewModel.getRows()).forEach(rowIndex -> IntStream.range(0, viewModel.getColumns()).forEach(columnIndex -> {
@@ -43,13 +45,13 @@ public class View extends GridPane {
     
     private ColumnConstraints createColumnConstraints(int columnIndex) {
         ColumnConstraints columnConstraints = new ColumnConstraints();
-        columnConstraints.setHgrow(Priority.SOMETIMES);
+        columnConstraints.setPercentWidth(100. / viewModel.getColumns());
         return columnConstraints;
     }
     
     private RowConstraints createRowConstraints(int rowIndex) {
         RowConstraints rowConstraints = new RowConstraints();
-        rowConstraints.setVgrow(Priority.SOMETIMES);
+        rowConstraints.setPercentHeight(100. / viewModel.getRows());
         return rowConstraints;
     }
 }

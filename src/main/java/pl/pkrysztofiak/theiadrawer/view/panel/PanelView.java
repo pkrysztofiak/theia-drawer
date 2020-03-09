@@ -10,6 +10,7 @@ import pl.pkrysztofiak.theiadrawer.view.panel.image.ImagePanelView;
 import pl.pkrysztofiak.theiadrawer.view.panel.image.tool.PanelToolHandler;
 import pl.pkrysztofiak.theiadrawer.view.panel.toolbar.ToolbarView;
 import pl.pkrysztofiak.theiadrawer.viewmodel.panel.PanelViewModel;
+import pl.pkrysztofiak.theiadrawer.viewmodel.panel.image.ImagePanelViewModel;
 import pl.pkrysztofiak.theiadrawer.viewmodel.panel.toolbar.tool.Tool;
 
 public class PanelView extends BorderPane {
@@ -17,8 +18,10 @@ public class PanelView extends BorderPane {
     private final ToolbarView toolbarView;
     private final ImagePanelView imagePanelView;
     private final PanelToolHandler toolHandler;
-
+    
     public final ObjectProperty<Tool> selectedToolProperty = new SimpleObjectProperty<>();
+    
+//    private final StackPane stackPane = new StackPane();
     
     {
         setStyle("-fx-background-color: purple, white; -fx-background-insets: 0, 1;");
@@ -30,11 +33,14 @@ public class PanelView extends BorderPane {
         toolbarView = new ToolbarView(panelViewModel.getToolbarViewModel());
         initToolbar();
         
-        imagePanelView = new ImagePanelView(panelViewModel.getImagePanelViewModel());
-        toolHandler = new PanelToolHandler(imagePanelView);
+        ImagePanelViewModel imagePanelViewModel = panelViewModel.getImagePanelViewModel();
+        imagePanelView = new ImagePanelView(imagePanelViewModel);
+        toolHandler = new PanelToolHandler(imagePanelView, imagePanelViewModel);
         toolHandler.selectedToolProperty.bindBidirectional(selectedToolProperty);
 
+//        stackPane.getChildren().add(imagePanelView);
         setTop(toolbarView);
+//        setCenter(stackPane);
         setCenter(imagePanelView);
     }
     
